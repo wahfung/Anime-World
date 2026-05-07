@@ -10,33 +10,39 @@
 
 ## 🚀 启动指南 (How to Run)
 
-1. 确保 Docker Desktop 已启动
-2. 在项目根目录执行：
-   ```bash
-   docker compose up -d --build
-   ```
-3. 等待容器启动完成（首次启动需要初始化数据库，约需30秒）
-4. 访问网站
+### 环境要求
+
+- PHP 8.2 或更高版本
+- Apache Web 服务器
+- MySQL 8.0 或更高版本
+
+### 安装步骤
+
+1. 配置 Web 服务器，将 `backend/src/` 目录作为网站根目录
+2. 创建 MySQL 数据库，并执行 `mysql/init.sql` 初始化脚本
+3. 修改 `backend/src/config/database.php` 中的数据库连接配置
+4. 启动 Apache 和 MySQL 服务
+5. 访问网站
 
 ## 🔗 服务地址 (Services)
 
-| 服务 | 地址 |
-|------|------|
-| 前台网站 | http://localhost:8080 |
-| 后台管理 | http://localhost:8080/admin |
-| 数据库 | localhost:3306 |
+| 服务     | 地址                                              |
+| -------- | ------------------------------------------------- |
+| 前台网站 | http://localhost/ (根据你的 Web 服务器配置)       |
+| 后台管理 | http://localhost/admin/ (根据你的 Web 服务器配置) |
 
 ## 🧪 测试账号
 
-| 角色 | 用户名 | 密码 |
-|------|--------|------|
-| 管理员 | admin | password |
-| 普通用户 | test_user | password |
+| 角色     | 用户名      | 密码     |
+| -------- | ----------- | -------- |
+| 管理员   | admin       | password |
+| 普通用户 | test_user   | password |
 | 普通用户 | anime_lover | password |
 
 ## 📄 页面说明
 
 ### 前台页面（6个以上）
+
 1. **首页** (`index.php`) - 网站首页，展示推荐动漫、分类导航、最新更新
 2. **动漫列表** (`anime_list.php`) - 动漫浏览页面，支持分类筛选、状态筛选、搜索、排序
 3. **动漫详情** (`anime_detail.php`) - 动漫详细信息页面，支持收藏功能
@@ -45,6 +51,7 @@
 6. **留言板** (`guestbook.php`) - 用户留言互动
 
 ### 后台管理页面（5个）
+
 1. **仪表盘** (`admin/index.php`) - 数据统计概览
 2. **动漫管理** (`admin/animes.php`) - 动漫的增删改查
 3. **用户管理** (`admin/users.php`) - 用户管理
@@ -65,10 +72,8 @@
 ## 🗂 项目结构
 
 ```
-889/
-├── docker-compose.yml      # Docker 编排配置
+repo/
 ├── backend/
-│   ├── Dockerfile          # PHP Apache 镜像配置
 │   └── src/                # PHP 源代码
 │       ├── config/         # 配置文件
 │       ├── includes/       # 公共模块
@@ -78,15 +83,3 @@
 └── mysql/
     └── init.sql            # 数据库初始化脚本
 ```
-
-## 🐳 Docker 说明
-
-- MySQL 使用 UTF8MB4 编码
-- 数据持久化存储在 Docker Volume
-- 首次启动自动初始化数据库和填充演示数据
-
-## 📝 注意事项
-
-- 首次启动请耐心等待数据库初始化
-- 如需停止服务：`docker compose down`
-- 如需清除数据：`docker compose down -v`
